@@ -68,10 +68,10 @@ public class LinearCalculator{
         if ((x2 - x1) == 0) {
             yInt = -999.99;
         } else {
-            x2 = x1;
-            y2 = y1;
-            x1 = 0;
-            yInt = y2 - ((double)slope()/x2);
+            yInt = y1 - ((double)slope())*x1;
+            yInt = yInt * 100;
+            yInt = Math.round(yInt);
+            yInt = yInt / 100;
         }
         return yInt;
     }
@@ -97,11 +97,25 @@ public class LinearCalculator{
     //if the equation has no slope, the equation should return -> "undefined"
     //HINT: You may need other custom methods to decrease the amount of code in the equations() method
     public String equation(){
-        String equation;
+        String equation = "";
         if (slope() == -999.99) {
             equation = "undefined";
         } else {
-            equation = "y=" + slope() + "x+" + yInt();
+            if (yInt() < 0) {
+                equation = "y=" + slope() + "x" + yInt();
+            } else {
+                if (yInt() > 0) {
+                    equation = "y=" + slope() + "x+" + yInt();
+                } else {
+                    if (yInt() == 0) {
+                        equation = "y=" + slope() + "x";
+                    } 
+                    
+                }
+            }
+            if (slope() == 0) {
+                equation = "y=" + yInt();
+            }
         }
         return equation;
     }
